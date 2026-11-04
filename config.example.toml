@@ -1,0 +1,59 @@
+# Copy to config.toml (git-ignored), then fill in. See README "Map your accounts".
+# Get the ids with: docker compose run --rm wsmsync accounts --profile me
+data_dir = "data"                 # sessions + state live here (mode 600), never in git
+timezone = "America/Toronto"      # your local time zone (decides which day a transaction is on)
+ntfy_url = "https://ntfy.sh/your-private-topic"   # optional: phone alerts on failure / re-login
+
+[[profile]]
+name = "me"                       # used as --profile me
+ws_username = "you@example.com"   # your Wealthsimple sign-in email
+start_date = "2026-09-25"         # first day to import (the day before Monarch stopped syncing)
+monarch_category = "Uncategorized"  # category given to imported transactions (you review them)
+
+  # One [[profile.account]] block per Wealthsimple account you want in Monarch.
+  # ws_account_id      = left column of the "Wealthsimple:" list
+  # monarch_account_id = left column of the "Monarch:" list (the number)
+  # mode               = transactions | investments | cash_flows | balance_only
+  # update_balance     = true to also keep the Monarch balance / value right
+  # name               = optional label, only for your own reading and the logs
+
+  [[profile.account]]
+  name = "Chequing -> WS Chequing"
+  ws_account_id = "ca-cash-XXXXXXXX"
+  monarch_account_id = "100000000000000001"
+  mode = "transactions"
+  update_balance = true
+
+  [[profile.account]]
+  name = "Visa -> WS Visa"
+  ws_account_id = "ca-credit-card-XXXXXXXXXX"
+  monarch_account_id = "100000000000000002"
+  mode = "transactions"
+  update_balance = true
+
+  [[profile.account]]
+  name = "TFSA -> WS TFSA"
+  ws_account_id = "tfsa-XXXXXXXX"
+  monarch_account_id = "100000000000000003"
+  mode = "investments"            # or "cash_flows" to skip buys/sells
+  update_balance = true
+
+  [[profile.account]]
+  name = "RRSP -> WS RRSP"
+  ws_account_id = "rrsp-XXXXXXXX"
+  monarch_account_id = "100000000000000004"
+  mode = "balance_only"           # no transactions, just the value
+  update_balance = true
+
+# A second person: their own profile and Wealthsimple login, sharing your Monarch household.
+# [[profile]]
+# name = "partner"
+# ws_username = "partner@example.com"
+# start_date = "2026-09-25"
+# monarch_profile = "me"          # reuse the "me" Monarch login
+#
+#   [[profile.account]]
+#   ws_account_id = "ca-credit-card-YYYYYYYYYY"
+#   monarch_account_id = "100000000000000005"
+#   mode = "transactions"
+#   update_balance = true

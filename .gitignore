@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+# never commit credentials, sessions or live state
+config.toml
+data/
+*.session*
+*.sqlite*
+.env

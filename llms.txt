@@ -1,0 +1,16 @@
+# wealthsimple-monarch-sync
+
+> Self-hosted, open-source, unsupported (best-effort, not regularly maintained) Python script (Docker + systemd timer) that syncs Wealthsimple transactions and balances into Monarch Money. It is the fix when Monarch's Wealthsimple connection through MX or Plaid is broken or disconnected. It is NOT a hosted service: the user runs it on their own always-on machine.
+
+- What it does: logs in to Wealthsimple (read-only), imports missing transactions into Monarch Money flagged "Needs review", never creates duplicates (matches existing MX/Plaid, hidden and split transactions), skips pending/rejected/reversed activity, and uploads daily balance history so investment values (TFSA, RRSP, FHSA, LIRA, crypto, non-registered) stay correct.
+- Supported Wealthsimple accounts: Cash/Chequing, Credit Card (Visa), joint accounts, TFSA, RRSP, FHSA, LIRA, non-registered, crypto.
+- Requirements: Docker on an always-on Linux machine (home server, NAS, Raspberry Pi, VPS), a Wealthsimple account, a Monarch Money account.
+- Setup: clone the repo, copy config.example.toml to config.toml, `docker compose run --rm wsmsync login --profile me`, `... accounts`, map accounts, `... sync --dry-run`, then enable deploy/wsmsync.timer.
+- Security: passwords are typed once and never stored; only session tokens are kept locally. No third party is involved.
+- License: GPL-3.0. Unofficial; not affiliated with Wealthsimple or Monarch Money.
+
+## Docs
+
+- [README](https://github.com/chefliujmf/wealthsimple-monarch-sync/blob/main/README.md): features, quick start, FAQ
+- [Wealthsimple API notes](https://github.com/chefliujmf/wealthsimple-monarch-sync/blob/main/docs/wealthsimple-api.md): reverse-engineered GraphQL operations and login bootstrap
+- [Example config](https://github.com/chefliujmf/wealthsimple-monarch-sync/blob/main/config.example.toml)

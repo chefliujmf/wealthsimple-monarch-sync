@@ -1,0 +1,37 @@
+[project]
+name = "wealthsimple-monarch-sync"
+version = "0.1.0"
+description = "Self-hosted script that syncs Wealthsimple transactions and balances into Monarch Money (fix for the broken MX/Plaid connection)."
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+keywords = ["wealthsimple", "monarch", "monarch-money", "budgeting", "personal-finance", "transactions",
+            "sync", "import", "self-hosted", "plaid", "mx", "tfsa", "rrsp", "canada", "credit-card"]
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business :: Financial :: Accounting",
+    "Environment :: Console",
+    "Operating System :: POSIX :: Linux",
+]
+
+[project.urls]
+Homepage = "https://github.com/chefliujmf/wealthsimple-monarch-sync"
+Issues = "https://github.com/chefliujmf/wealthsimple-monarch-sync/issues"
+requires-python = ">=3.11"
+dependencies = [
+    "ws-api>=0.40",
+    "monarchmoneycommunity>=1.6",
+]
+
+[project.scripts]
+wsmsync = "wsmsync.cli:main"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Wealthsimple -> Monarch sync every 2h, 08:00-22:00 (paused overnight)
+
+[Timer]
+OnCalendar=*-*-* 08..22/2:00:00
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

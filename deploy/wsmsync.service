@@ -1,0 +1,9 @@
+[Unit]
+Description=Wealthsimple -> Monarch sync (one pass)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/wealthsimple-monarch-sync
+ExecStart=/usr/bin/docker compose run --rm wsmsync sync

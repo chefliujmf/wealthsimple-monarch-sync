@@ -1,0 +1,9 @@
+# Run-once service; scheduled by deploy/wsmsync.timer. Interactive login:
+#   docker compose run --rm wsmsync login --profile me
+services:
+  wsmsync:
+    build: .
+    image: wsmsync:latest
+    volumes:
+      - ./config.toml:/work/config.toml:ro
+      - ./data:/work/data
